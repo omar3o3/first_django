@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from datetime import datetime
 from django.shortcuts import render
+from blog.models import ArticleModel
 
 # Create your views here.
 class Home(View):
@@ -15,21 +16,6 @@ class Home(View):
 
 class Article(View):
     def get(self, request):
-        articles = [
-            {
-                'title': "python is cool",
-                'category': 'tech',
-                'content': 'blah blah blah blah',
-                'author': 'guido',
-                'creation_date': datetime.now()
-            },
-            {
-                'title': 'tesla goes bankrupt',
-                'category': 'auto',
-                'content': 'blah2 blah2 blah2 blah2',
-                'author': 'elon musk',
-                'creation_date': datetime.now()
-            }
-        ]
+        articles = ArticleModel.objects.all()
 
         return render(request, 'articles.html', {'articles': articles})
